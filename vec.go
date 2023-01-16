@@ -8,7 +8,7 @@ import (
 )
 
 type Vec struct {
-	x, y int
+	X, Y int
 }
 
 var ZeroVec = Vec{}
@@ -36,63 +36,63 @@ func NewVecFromDimensions(input string) (Vec, error) {
 }
 
 func (v Vec) String() string {
-	return fmt.Sprintf("{x=%d,y=%d}", v.x, v.y)
+	return fmt.Sprintf("{x=%d,y=%d}", v.X, v.Y)
 }
 
 func (v Vec) RotateRight() Vec {
 	return Vec{
-		x: v.y,
-		y: -v.x,
+		X: v.Y,
+		Y: -v.X,
 	}
 }
 
 func (v Vec) RotateLeft() Vec {
 	return Vec{
-		x: -v.y,
-		y: v.x,
+		X: -v.Y,
+		Y: v.X,
 	}
 }
 
 func (v Vec) Scale(multiplier int) Vec {
 	return Vec{
-		x: v.x * multiplier,
-		y: v.y * multiplier,
+		X: v.X * multiplier,
+		Y: v.Y * multiplier,
 	}
 }
 
 func (v Vec) Add(other Vec) Vec {
 	return Vec{
-		x: v.x + other.x,
-		y: v.y + other.y,
+		X: v.X + other.X,
+		Y: v.Y + other.Y,
 	}
 }
 
 func (v Vec) Sub(other Vec) Vec {
 	return Vec{
-		x: v.x - other.x,
-		y: v.y - other.y,
+		X: v.X - other.X,
+		Y: v.Y - other.Y,
 	}
 }
 
 // Return the shortest vector that maintains the same direction
 func (v Vec) Shorten() Vec {
-	a, b := v.x, v.y
+	a, b := v.X, v.Y
 	for b != 0 {
 		a, b = b, a%b
 	}
 	if a < 0 {
 		a = -a
 	}
-	return NewVec(v.x/a, v.y/a)
+	return NewVec(v.X/a, v.Y/a)
 }
 
 func (v Vec) Length() float64 {
-	x, y := (float64)(v.x), (float64)(v.y)
+	x, y := (float64)(v.X), (float64)(v.Y)
 	return math.Sqrt(x*x + y*y)
 }
 
 func (v Vec) Dot(other Vec) int {
-	return v.x*other.x + v.y*other.y
+	return v.X*other.X + v.Y*other.Y
 }
 
 func (v Vec) Angle(other Vec) float64 {
@@ -100,29 +100,29 @@ func (v Vec) Angle(other Vec) float64 {
 }
 
 func (v Vec) InSquare(dimensions Vec) bool {
-	return 0 <= v.x && v.x < dimensions.x && 0 <= v.y && v.y < dimensions.y
+	return 0 <= v.X && v.X < dimensions.X && 0 <= v.Y && v.Y < dimensions.Y
 }
 
 func (v *Vec) UpdateMin(other Vec) {
-	if other.x < v.x {
-		v.x = other.x
+	if other.X < v.X {
+		v.X = other.X
 	}
-	if other.y < v.y {
-		v.y = other.y
+	if other.Y < v.Y {
+		v.Y = other.Y
 	}
 }
 
 func (v *Vec) UpdateMax(other Vec) {
-	if other.x > v.x {
-		v.x = other.x
+	if other.X > v.X {
+		v.X = other.X
 	}
-	if other.y > v.y {
-		v.y = other.y
+	if other.Y > v.Y {
+		v.Y = other.Y
 	}
 }
 
 func (v Vec) ManhattanDistance() int {
-	x, y := v.x, v.y
+	x, y := v.X, v.Y
 	if x < 0 {
 		x = -x
 	}
@@ -133,12 +133,12 @@ func (v Vec) ManhattanDistance() int {
 }
 
 func (v Vec) FindRangeAtY(radius int, y int) (int, int, bool) {
-	dist := Abs(y - v.y)
+	dist := Abs(y - v.Y)
 	if dist > radius {
 		return -1, -1, false
 	}
 	diff := radius - dist
-	minX := v.x - diff
-	maxX := v.x + diff
+	minX := v.X - diff
+	maxX := v.X + diff
 	return minX, maxX, true
 }
