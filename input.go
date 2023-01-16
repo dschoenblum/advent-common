@@ -1,4 +1,4 @@
-package main
+package common
 
 import (
 	"fmt"
@@ -36,7 +36,7 @@ func splitToInts(input string, delimiter string) []int {
 	return ints
 }
 
-func atoi(input string) int {
+func Atoi(input string) int {
 	num, err := strconv.Atoi(input)
 	if err != nil {
 		panic(fmt.Sprintf("Failed to convert '%s' to int", input))

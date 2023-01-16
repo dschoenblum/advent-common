@@ -1,4 +1,4 @@
-package main
+package common
 
 import (
 	"fmt"
@@ -37,14 +37,6 @@ func NewVecFromDimensions(input string) (Vec, error) {
 
 func (v Vec) String() string {
 	return fmt.Sprintf("{x=%d,y=%d}", v.x, v.y)
-}
-
-func (v Vec) X() int {
-	return v.x
-}
-
-func (v Vec) Y() int {
-	return v.y
 }
 
 func (v Vec) RotateRight() Vec {
@@ -141,7 +133,7 @@ func (v Vec) ManhattanDistance() int {
 }
 
 func (v Vec) FindRangeAtY(radius int, y int) (int, int, bool) {
-	dist := abs(y - v.y)
+	dist := Abs(y - v.y)
 	if dist > radius {
 		return -1, -1, false
 	}
