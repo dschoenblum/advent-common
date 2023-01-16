@@ -9,9 +9,9 @@ import (
 type SolverFunc func(input string) (string, error)
 
 type Day struct {
-	solverA SolverFunc
-	solverB SolverFunc
-	input   string
+	SolverA SolverFunc
+	SolverB SolverFunc
+	Input   string
 }
 
 func IntResult(result int) (string, error) {
@@ -30,8 +30,8 @@ func Run(days []Day) {
 	for i, day := range days {
 		num := i + 1
 		if num == len(days) {
-			handleSolver(num, "A", day.solverA, day.input)
-			handleSolver(num, "B", day.solverB, day.input)
+			handleSolver(num, "A", day.SolverA, day.Input)
+			handleSolver(num, "B", day.SolverB, day.Input)
 		}
 	}
 }
