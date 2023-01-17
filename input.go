@@ -2,9 +2,18 @@ package common
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
+
+func FromFile(filename string) string {
+	input, err := os.ReadFile(filename)
+	if err != nil {
+		panic("Unable to read file")
+	}
+	return string(input)
+}
 
 func ToLines(input string) []string {
 	return strings.Split(input, "\n")
