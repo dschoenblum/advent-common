@@ -15,6 +15,14 @@ func FromFile(filename string) string {
 	return string(input)
 }
 
+func FromFileTrimmed(filename string) string {
+	input, err := os.ReadFile(filename)
+	if err != nil {
+		panic("Unable to read file")
+	}
+	return strings.TrimSpace(string(input))
+}
+
 func ToLines(input string) []string {
 	return strings.Split(input, "\n")
 }
