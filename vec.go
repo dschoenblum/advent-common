@@ -53,6 +53,13 @@ func (v Vec) RotateLeft() Vec {
 	}
 }
 
+func (v Vec) Reverse() Vec {
+	return Vec{
+		X: -v.X,
+		Y: -v.Y,
+	}
+}
+
 func (v Vec) Scale(multiplier int) Vec {
 	return Vec{
 		X: v.X * multiplier,
