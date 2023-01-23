@@ -37,14 +37,14 @@ func ToTrimmedLines(input string) []string {
 }
 
 func ToInts(input string) []int {
-	return splitToInts(input, "\n")
+	return SplitToInts(input, "\n")
 }
 
 func CsvToInts(input string) []int {
-	return splitToInts(input, ",")
+	return SplitToInts(input, ",")
 }
 
-func splitToInts(input string, delimiter string) []int {
+func SplitToInts(input string, delimiter string) []int {
 	lines := strings.Split(input, delimiter)
 	ints := make([]int, len(lines))
 	for i, line := range lines {
