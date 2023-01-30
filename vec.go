@@ -39,6 +39,10 @@ func (v Vec) String() string {
 	return fmt.Sprintf("{x=%d,y=%d}", v.X, v.Y)
 }
 
+func (v Vec) Csv() string {
+	return fmt.Sprintf("%d,%d", v.X, v.Y)
+}
+
 func (v Vec) RotateRight() Vec {
 	return Vec{
 		X: v.Y,
