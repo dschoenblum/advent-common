@@ -1,11 +1,11 @@
 package common
 
-type Grid[T any] struct {
+type Grid[T comparable] struct {
 	width, height int
 	values        []T
 }
 
-func NewGrid[T any](width, height int) *Grid[T] {
+func NewGrid[T comparable](width, height int) *Grid[T] {
 	return &Grid[T]{
 		width:  width,
 		height: height,
@@ -58,4 +58,16 @@ func (g *Grid[T]) IsValidVec(pos Vec) bool {
 
 func (g *Grid[T]) IsValid(x, y int) bool {
 	return x >= 0 && x < g.width && y >= 0 && y < g.height
+}
+
+func (g *Grid[T]) DoesEqual(other *Grid[T]) bool {
+	if g.width != other.width || g.height != other.height {
+		return false
+	}
+	for i := 0; i < len(g.values); i++ {
+		if g.values[i] != other.values[i] {
+			return false
+		}
+	}
+	return true
 }
