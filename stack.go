@@ -2,8 +2,10 @@ package common
 
 type Stack[T any] []T
 
-func NewStack[T any]() *Stack[T] {
-	return &Stack[T]{}
+func NewStack[T any](items ...T) *Stack[T] {
+	s := &Stack[T]{}
+	*s = append(*s, items...)
+	return s
 }
 
 func (s *Stack[T]) Push(items ...T) {
