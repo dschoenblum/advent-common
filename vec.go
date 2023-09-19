@@ -16,6 +16,7 @@ var MinVec = NewVec(math.MinInt, math.MinInt)
 var MaxVec = NewVec(math.MaxInt, math.MaxInt)
 var North, South, East, West = NewVec(0, 1), NewVec(0, -1), NewVec(1, 0), NewVec(-1, 0)
 var Up, Down, Right, Left = North, South, East, West
+var Directions = []Vec{Up, Down, Left, Right}
 
 func NewVec(x, y int) Vec {
 	return Vec{x, y}

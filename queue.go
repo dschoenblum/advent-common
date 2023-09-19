@@ -9,7 +9,7 @@ func NewQueue[T any]() *Queue[T] {
 	return &Queue[T]{}
 }
 
-// NewQueue creates a new queue.
+// NewQueueFromArray creates a new queue starting with the given items.
 func NewQueueFromArray[T any](items []T) *Queue[T] {
 	q := make(Queue[T], len(items))
 	copy(q, items)
