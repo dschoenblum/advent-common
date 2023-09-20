@@ -46,3 +46,50 @@ func GreatestCommonDivisor(a, b int) int {
 func LeastCommonMultiple(a, b int) int {
 	return a * b / GreatestCommonDivisor(a, b)
 }
+
+// GcdExtended is based on https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/
+func GcdExtended(a, b int) (x, y, gcd int) {
+	// base case
+	if a == 0 {
+		return 0, 1, b
+	}
+
+	// call recursively
+	var x1, y1 int
+	x1, y1, gcd = GcdExtended(b%a, a)
+
+	// set x and y
+	x = y1 - (b/a)*x1
+	y = x1
+	return
+}
+
+// ModInverse is based on https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/
+func ModInverse(a, m int) (int, bool) {
+	x, _, gcd := GcdExtended(a, m)
+	if gcd != 1 {
+		return 0, false
+	}
+	return (x%m + m) % m, true
+}
+
+// ChineseRemainder is based on https://www.geeksforgeeks.org/implementation-of-chinese-remainder-theorem-inverse-modulo-based-implementation/#
+func ChineseRemainder(num, rem []int) int {
+	if len(num) != len(rem) {
+		panic("array lengths do not match")
+	}
+
+	product := 1
+	for _, n := range num {
+		product *= n
+	}
+
+	x := 0
+	for i := 0; i < len(num); i++ {
+		pp := product / num[i]
+		inv, _ := ModInverse(pp, num[i])
+		x += rem[i] * pp * inv
+	}
+
+	return x % product
+}
