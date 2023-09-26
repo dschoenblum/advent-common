@@ -7,6 +7,10 @@ type Parser struct {
 	offset int
 }
 
+type ParserMark struct {
+	offset int
+}
+
 func NewParser(source string) Parser {
 	return Parser{
 		source: source,
@@ -38,4 +42,16 @@ func (p *Parser) Expect(expected byte) {
 		panic(fmt.Sprintf("Expected %c, got %c", expected, r))
 	}
 	p.Consume()
+}
+
+func (p *Parser) Mark() ParserMark {
+	return ParserMark{p.offset}
+}
+
+func (p *Parser) ResetToMark(mark ParserMark) {
+	p.offset = mark.offset
+}
+
+func (p *Parser) AtOffset() int {
+	return p.offset
 }
