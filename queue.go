@@ -36,3 +36,11 @@ func (q *Queue[T]) IsEmpty() bool {
 func (q *Queue[T]) Count() int {
 	return len(*q)
 }
+
+func (q *Queue[T]) PeekAt(index int) T {
+	return (*q)[index]
+}
+
+func (q *Queue[T]) CloneFront(count int) *Queue[T] {
+	return NewQueueFromArray((*q)[:count])
+}
