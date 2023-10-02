@@ -32,3 +32,7 @@ func (q *Queue[T]) Dequeue() T {
 func (q *Queue[T]) IsEmpty() bool {
 	return len(*q) == 0
 }
+
+func (q *Queue[T]) Count() int {
+	return len(*q)
+}
