@@ -133,6 +133,11 @@ func (v *Vec) UpdateMax(other Vec) {
 	}
 }
 
+func (v Vec) UpdateMinMax(min, max *Vec) {
+	min.UpdateMin(v)
+	max.UpdateMax(v)
+}
+
 func (v Vec) ManhattanDistance() int {
 	x, y := v.X, v.Y
 	if x < 0 {

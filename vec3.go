@@ -51,6 +51,10 @@ func (v Vec3) ManhattanDistanceTo(other Vec3) int {
 	return v.Sub(other).ManhattanDistance()
 }
 
+func (v Vec3) DistanceSquared() int {
+	return v.X*v.X + v.Y*v.Y + v.Z*v.Z
+}
+
 func (v *Vec3) UpdateMin(other Vec3) {
 	if other.X < v.X {
 		v.X = other.X
