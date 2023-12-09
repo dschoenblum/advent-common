@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"time"
 )
@@ -27,13 +28,22 @@ func ErrorResult(result error) (string, error) {
 }
 
 func Run(days []Day) {
-	for i, day := range days {
-		num := i + 1
-		if num == len(days) {
-			handleSolver(num, "A", day.SolverA, day.Input)
-			handleSolver(num, "B", day.SolverB, day.Input)
+	var dayNum int
+	if len(os.Args) > 1 {
+		num, err := strconv.Atoi(os.Args[1])
+		if err != nil {
+			panic(fmt.Sprintf("Unable to parse day number: %s", os.Args[1]))
+		} else if num < 1 || num > len(days) {
+			panic(fmt.Sprintf("Day number out of range: %d", num))
 		}
+		dayNum = num
+	} else {
+		dayNum = len(days)
 	}
+
+	day := days[dayNum-1]
+	handleSolver(dayNum, "A", day.SolverA, day.Input)
+	handleSolver(dayNum, "B", day.SolverB, day.Input)
 }
 
 func (s SolverFunc) runFunc(input string) (string, time.Duration, error) {
