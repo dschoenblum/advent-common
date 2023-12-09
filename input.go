@@ -53,6 +53,15 @@ func SplitToInts(input string, delimiter string) []int {
 	return ints
 }
 
+func SplitFieldsToInts(input string) []int {
+	parts := strings.Fields(input)
+	ints := make([]int, len(parts))
+	for i, part := range parts {
+		ints[i], _ = strconv.Atoi(part)
+	}
+	return ints
+}
+
 func Atoi(input string) int {
 	num, err := strconv.Atoi(input)
 	if err != nil {
