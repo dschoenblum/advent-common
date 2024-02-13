@@ -41,6 +41,14 @@ func (q *Queue[T]) PeekAt(index int) T {
 	return (*q)[index]
 }
 
+func (q *Queue[T]) RemoveAt(index int) {
+	*q = append((*q)[:index], (*q)[index+1:]...)
+}
+
+func (q *Queue[T]) UpdateAt(index int, item T) {
+	(*q)[index] = item
+}
+
 func (q *Queue[T]) CloneFront(count int) *Queue[T] {
 	return NewQueueFromArray((*q)[:count])
 }
