@@ -14,8 +14,18 @@ type Vec struct {
 var ZeroVec = Vec{}
 var MinVec = NewVec(math.MinInt, math.MinInt)
 var MaxVec = NewVec(math.MaxInt, math.MaxInt)
-var North, South, East, West = NewVec(0, 1), NewVec(0, -1), NewVec(1, 0), NewVec(-1, 0)
-var Up, Down, Right, Left = North, South, East, West
+var (
+	South = NewVec(0, 1)
+	East  = NewVec(1, 0)
+	West  = NewVec(-1, 0)
+	North = NewVec(0, -1)
+)
+var (
+	Down  = South
+	Right = East
+	Left  = West
+	Up    = North
+)
 var Directions = []Vec{Up, Down, Left, Right}
 
 func NewVec(x, y int) Vec {
@@ -46,15 +56,15 @@ func (v Vec) Csv() string {
 
 func (v Vec) RotateRight() Vec {
 	return Vec{
-		X: v.Y,
-		Y: -v.X,
+		X: -v.Y,
+		Y: v.X,
 	}
 }
 
 func (v Vec) RotateLeft() Vec {
 	return Vec{
-		X: -v.Y,
-		Y: v.X,
+		X: v.Y,
+		Y: -v.X,
 	}
 }
 
