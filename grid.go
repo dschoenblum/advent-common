@@ -13,6 +13,17 @@ func NewGrid[T comparable](width, height int) *Grid[T] {
 	}
 }
 
+func NewGridFromInput[T comparable](input string, parse func(rune) T) *Grid[T] {
+	lines := ToTrimmedLines(input)
+	grid := NewGrid[T](len(lines[0]), len(lines))
+	for y, line := range lines {
+		for x, r := range line {
+			grid.Set(x, y, parse(r))
+		}
+	}
+	return grid
+}
+
 func (g *Grid[T]) toOffset(x, y int) int {
 	return y*g.width + x
 }
