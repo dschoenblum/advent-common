@@ -15,16 +15,24 @@ var ZeroVec = Vec{}
 var MinVec = NewVec(math.MinInt, math.MinInt)
 var MaxVec = NewVec(math.MaxInt, math.MaxInt)
 var (
-	South = NewVec(0, 1)
-	East  = NewVec(1, 0)
-	West  = NewVec(-1, 0)
-	North = NewVec(0, -1)
+	South     = NewVec(0, 1)
+	East      = NewVec(1, 0)
+	West      = NewVec(-1, 0)
+	North     = NewVec(0, -1)
+	NorthEast = NewVec(1, -1)
+	NorthWest = NewVec(-1, -1)
+	SouthEast = NewVec(1, 1)
+	SouthWest = NewVec(-1, 1)
 )
 var (
-	Down  = South
-	Right = East
-	Left  = West
-	Up    = North
+	Down      = South
+	Right     = East
+	Left      = West
+	Up        = North
+	UpRight   = NorthEast
+	UpLeft    = NorthWest
+	DownRight = SouthEast
+	DownLeft  = SouthWest
 )
 var Directions = []Vec{Up, Down, Left, Right}
 
@@ -168,4 +176,20 @@ func (v Vec) FindRangeAtY(radius int, y int) (int, int, bool) {
 	minX := v.X - diff
 	maxX := v.X + diff
 	return minX, maxX, true
+}
+
+func (v Vec) Clamp(min, max Vec) Vec {
+	if v.X < min.X {
+		v.X = min.X
+	}
+	if v.X > max.X {
+		v.X = max.X
+	}
+	if v.Y < min.Y {
+		v.Y = min.Y
+	}
+	if v.Y > max.Y {
+		v.Y = max.Y
+	}
+	return v
 }
