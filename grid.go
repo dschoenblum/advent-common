@@ -24,6 +24,12 @@ func NewGridFromInput[T comparable](input string, parse func(rune) T) *Grid[T] {
 	return grid
 }
 
+func NewGridFromString(input string) *Grid[byte] {
+	return NewGridFromInput(input, func(r rune) byte {
+		return byte(r)
+	})
+}
+
 func (g *Grid[T]) toOffset(x, y int) int {
 	return y*g.width + x
 }
@@ -81,4 +87,32 @@ func (g *Grid[T]) DoesEqual(other *Grid[T]) bool {
 		}
 	}
 	return true
+}
+
+// First finds the first position in the grid that satisfies the predicate.
+func (g *Grid[T]) First(predicate func(T) bool) (pos Vec, ok bool) {
+	for y := 0; y < g.height; y++ {
+		for x := 0; x < g.width; x++ {
+			if predicate(g.Get(x, y)) {
+				return Vec{x, y}, true
+			}
+		}
+	}
+	return Vec{}, false
+}
+
+// Find finds the first position in the grid that matches the value.
+func (g *Grid[T]) Find(value T) (pos Vec, ok bool) {
+	return g.First(func(v T) bool {
+		return v == value
+	})
+}
+
+// Visit calls the visitor function for each position in the grid.
+func (g *Grid[T]) Visit(visitor func(Vec, T)) {
+	for y := 0; y < g.height; y++ {
+		for x := 0; x < g.width; x++ {
+			visitor(Vec{x, y}, g.Get(x, y))
+		}
+	}
 }
