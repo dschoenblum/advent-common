@@ -1,5 +1,9 @@
 package common
 
+import (
+	"iter"
+)
+
 type Grid[T comparable] struct {
 	width, height int
 	values        []T
@@ -113,6 +117,48 @@ func (g *Grid[T]) Visit(visitor func(Vec, T)) {
 	for y := 0; y < g.height; y++ {
 		for x := 0; x < g.width; x++ {
 			visitor(Vec{x, y}, g.Get(x, y))
+		}
+	}
+}
+
+func (g *Grid[T]) All() iter.Seq2[Vec, T] {
+	return func(yield func(pos Vec, value T) bool) {
+		for y := 0; y < g.height; y++ {
+			for x := 0; x < g.width; x++ {
+				if !yield(NewVec(x, y), g.Get(x, y)) {
+					return
+				}
+			}
+		}
+	}
+}
+
+var neighbors4 = []Vec{North, East, South, West}
+
+func (g *Grid[T]) Neighbors4(pos Vec) iter.Seq2[Vec, T] {
+	return func(yield func(neighbor Vec, value T) bool) {
+		for _, dir := range neighbors4 {
+			neighbor := pos.Add(dir)
+			if g.IsValidVec(neighbor) {
+				if !yield(neighbor, g.GetVec(neighbor)) {
+					return
+				}
+			}
+		}
+	}
+}
+
+var neighbors8 = []Vec{North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest}
+
+func (g *Grid[T]) Neighbors8(pos Vec) iter.Seq2[Vec, T] {
+	return func(yield func(neighbor Vec, value T) bool) {
+		for _, dir := range neighbors8 {
+			neighbor := pos.Add(dir)
+			if g.IsValidVec(neighbor) {
+				if !yield(neighbor, g.GetVec(neighbor)) {
+					return
+				}
+			}
 		}
 	}
 }
