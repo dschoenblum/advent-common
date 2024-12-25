@@ -37,7 +37,7 @@ func (s *Set[T]) All() iter.Seq[T] {
 	}
 }
 
-func (s *Set[T]) Len() int {
+func (s *Set[T]) Size() int {
 	return len(s.values)
 }
 
