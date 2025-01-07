@@ -55,7 +55,8 @@ func NewVecFromDimensions(input string) (Vec, error) {
 }
 
 func (v Vec) String() string {
-	return fmt.Sprintf("{x=%d,y=%d}", v.X, v.Y)
+	//return fmt.Sprintf("{x=%d,y=%d}", v.X, v.Y)
+	return fmt.Sprintf("%d,%d", v.X, v.Y)
 }
 
 func (v Vec) Csv() string {
