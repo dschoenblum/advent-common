@@ -43,8 +43,11 @@ func GreatestCommonDivisor(a, b int) int {
 	return a
 }
 
-func LeastCommonMultiple(a, b int) int {
-	return a * b / GreatestCommonDivisor(a, b)
+func LeastCommonMultiple(a int, bs ...int) int {
+	for _, b := range bs {
+		a = a * b / GreatestCommonDivisor(a, b)
+	}
+	return a
 }
 
 // GcdExtended is based on https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/
