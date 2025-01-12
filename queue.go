@@ -5,8 +5,12 @@ package common
 type Queue[T any] []T
 
 // NewQueue creates a new queue.
-func NewQueue[T any]() *Queue[T] {
-	return &Queue[T]{}
+func NewQueue[T any](values ...T) *Queue[T] {
+	q := &Queue[T]{}
+	for _, value := range values {
+		q.Enqueue(value)
+	}
+	return q
 }
 
 // NewQueueFromArray creates a new queue starting with the given items.
