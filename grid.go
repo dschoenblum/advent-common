@@ -38,6 +38,18 @@ func (g *Grid[T]) toOffset(x, y int) int {
 	return y*g.width + x
 }
 
+func (g *Grid[T]) toOffsetRepeating(x, y int) int {
+	x = x % g.width
+	if x < 0 {
+		x += g.width
+	}
+	y = y % g.height
+	if y < 0 {
+		y += g.height
+	}
+	return y*g.width + x
+}
+
 func (g *Grid[T]) Width() int {
 	return g.width
 }
@@ -60,6 +72,14 @@ func (g *Grid[T]) GetVec(pos Vec) (value T) {
 
 func (g *Grid[T]) Get(x, y int) (value T) {
 	return g.values[g.toOffset(x, y)]
+}
+
+func (g *Grid[T]) GetVecRepeating(pos Vec) (value T) {
+	return g.GetRepeating(pos.X, pos.Y)
+}
+
+func (g *Grid[T]) GetRepeating(x, y int) (value T) {
+	return g.values[g.toOffsetRepeating(x, y)]
 }
 
 func (g *Grid[T]) TryGetVec(pos Vec) (value T, ok bool) {
@@ -143,6 +163,17 @@ func (g *Grid[T]) Neighbors4(pos Vec) iter.Seq2[Vec, T] {
 				if !yield(neighbor, g.GetVec(neighbor)) {
 					return
 				}
+			}
+		}
+	}
+}
+
+func (g *Grid[T]) Neighbors4Repeating(pos Vec) iter.Seq2[Vec, T] {
+	return func(yield func(neighbor Vec, value T) bool) {
+		for _, dir := range neighbors4 {
+			neighbor := pos.Add(dir)
+			if !yield(neighbor, g.GetVecRepeating(neighbor)) {
+				return
 			}
 		}
 	}
