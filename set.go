@@ -1,6 +1,9 @@
 package common
 
-import "iter"
+import (
+	"iter"
+	"maps"
+)
 
 type Set[T comparable] struct {
 	values map[T]struct{}
@@ -47,4 +50,8 @@ func (s *Set[T]) Random() T {
 	}
 	var zero T
 	return zero
+}
+
+func (s *Set[T]) Clone() *Set[T] {
+	return &Set[T]{values: maps.Clone(s.values)}
 }
