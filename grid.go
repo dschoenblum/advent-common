@@ -193,3 +193,27 @@ func (g *Grid[T]) Neighbors8(pos Vec) iter.Seq2[Vec, T] {
 		}
 	}
 }
+
+func (g *Grid[T]) RotateClockwise() *Grid[T] {
+	n := NewGrid[T](g.height, g.width)
+	g.Visit(func(pos Vec, v T) {
+		n.Set(g.height-pos.Y-1, pos.X, v)
+	})
+	return n
+}
+
+func (g *Grid[T]) MirrorX() *Grid[T] {
+	n := NewGrid[T](g.width, g.height)
+	g.Visit(func(pos Vec, v T) {
+		n.Set(g.width-pos.X-1, pos.Y, v)
+	})
+	return n
+}
+
+func (g *Grid[T]) MirrorY() *Grid[T] {
+	n := NewGrid[T](g.width, g.height)
+	g.Visit(func(pos Vec, v T) {
+		n.Set(pos.X, g.height-pos.Y-1, v)
+	})
+	return n
+}
