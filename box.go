@@ -77,3 +77,7 @@ func (b *Box) ShiftToHold(pos Vec, margin int) {
 		b.Translate(translate)
 	}
 }
+
+func (b *Box) IsInside(pos Vec) bool {
+	return pos.X > b.min.X && pos.X < b.max.X && pos.Y > b.min.Y && pos.Y < b.max.Y
+}
