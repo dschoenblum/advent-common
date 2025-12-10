@@ -40,7 +40,7 @@ func NewVec(x, y int) Vec {
 	return Vec{x, y}
 }
 
-// Create a Vec from "<width>x<height>"
+// NewVecFromDimensions creates a Vec from "<width>x<height>"
 func NewVecFromDimensions(input string) (Vec, error) {
 	dimensions := strings.Split(input, "x")
 	width, err := strconv.Atoi(dimensions[0])
@@ -52,6 +52,20 @@ func NewVecFromDimensions(input string) (Vec, error) {
 		return ZeroVec, err
 	}
 	return NewVec(width, height), nil
+}
+
+// NewVecFromCSV creates a Vec from "<x>,<y>"
+func NewVecFromCSV(input string) (Vec, error) {
+	dimensions := strings.Split(input, ",")
+	x, err := strconv.Atoi(dimensions[0])
+	if err != nil {
+		return ZeroVec, err
+	}
+	y, err := strconv.Atoi(dimensions[1])
+	if err != nil {
+		return ZeroVec, err
+	}
+	return NewVec(x, y), nil
 }
 
 func (v Vec) String() string {
